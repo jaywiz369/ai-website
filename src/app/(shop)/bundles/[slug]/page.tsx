@@ -45,7 +45,7 @@ export default function BundleDetailPage() {
       <div className="mx-auto max-w-7xl px-6 py-24 text-center">
         <h1 className="text-2xl font-semibold">Bundle not found</h1>
         <p className="mt-2 text-muted-foreground">
-          The bundle you're looking for doesn't exist.
+          The bundle you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button asChild className="mt-8">
           <Link href="/bundles">Browse Bundles</Link>

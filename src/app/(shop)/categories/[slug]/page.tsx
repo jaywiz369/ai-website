@@ -28,7 +28,7 @@ export default function CategoryPage() {
       <div className="mx-auto max-w-7xl px-6 py-24 text-center">
         <h1 className="text-2xl font-semibold">Category not found</h1>
         <p className="mt-2 text-muted-foreground">
-          The category you're looking for doesn't exist.
+          The category you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button asChild className="mt-8">
           <Link href="/categories">Browse Categories</Link>

@@ -89,7 +89,7 @@ export default function CheckoutPage() {
             <div className="border border-border p-6">
               <h2 className="text-lg font-medium mb-4">Contact Information</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                We'll send your download links to this email address.
+                We&apos;ll send your download links to this email address.
               </p>
               <Input
                 type="email"

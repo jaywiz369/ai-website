@@ -169,7 +169,7 @@ export default function CheckoutSuccessPage() {
           <div>
             <p className="text-sm font-medium">Check your email</p>
             <p className="text-sm text-muted-foreground">
-              We've sent a copy of your download links to {order.email}
+              We&apos;ve sent a copy of your download links to {order.email}
             </p>
           </div>
         </div>

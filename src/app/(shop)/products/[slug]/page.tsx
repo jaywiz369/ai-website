@@ -39,7 +39,7 @@ export default function ProductDetailPage() {
       <div className="mx-auto max-w-7xl px-6 py-24 text-center">
         <h1 className="text-2xl font-semibold">Product not found</h1>
         <p className="mt-2 text-muted-foreground">
-          The product you're looking for doesn't exist.
+          The product you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button asChild className="mt-8">
           <Link href="/products">Browse Products</Link>
@@ -122,7 +122,7 @@ export default function ProductDetailPage() {
 
           {/* Benefits */}
           <div>
-            <h3 className="font-medium mb-4">What you'll get:</h3>
+            <h3 className="font-medium mb-4">What you&apos;ll get:</h3>
             <ul className="space-y-3">
               {benefits.map((benefit) => (
                 <li key={benefit} className="flex items-center text-sm">
