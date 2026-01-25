@@ -1,0 +1,264 @@
+{
+  "niche": "Real Estate & Property Management",
+  "products": [
+    {
+      "id": 1,
+      "name": "Airbnb Thank You Card",
+      "description": "Professional thank you card template for Airbnb hosts to express gratitude to guests after their stay.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Card Template"
+    },
+    {
+      "id": 2,
+      "name": "Airbnb Welcome Card",
+      "description": "Welcoming card template for Airbnb hosts to greet guests upon arrival with essential information.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Card Template"
+    },
+    {
+      "id": 3,
+      "name": "Airbnb Welcome Guide Booklet",
+      "description": "Comprehensive welcome guide booklet template containing property information, house rules, local recommendations, and amenities for Airbnb guests.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Guide Booklet"
+    },
+    {
+      "id": 4,
+      "name": "Airbnb Welcome Sign",
+      "description": "Decorative welcome sign template for Airbnb properties to create a warm first impression for guests.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Signage"
+    },
+    {
+      "id": 5,
+      "name": "Check-In Instructions",
+      "description": "Detailed check-in instructions template providing guests with step-by-step guidance for property access and arrival procedures.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Instructions Template"
+    },
+    {
+      "id": 6,
+      "name": "Cleaning Checklist",
+      "description": "Comprehensive cleaning checklist template for property turnovers ensuring consistent cleanliness standards.",
+      "category": "Property Management",
+      "type": "Checklist"
+    },
+    {
+      "id": 7,
+      "name": "Home Buying Budget Worksheet",
+      "description": "Financial planning worksheet template to help home buyers calculate and track their budget for purchasing a property.",
+      "category": "Home Buying",
+      "type": "Worksheet"
+    },
+    {
+      "id": 8,
+      "name": "Home Improvement Project Planner",
+      "description": "Project planning template for organizing and tracking home improvement projects including timelines, budgets, and tasks.",
+      "category": "Home Improvement",
+      "type": "Planner"
+    },
+    {
+      "id": 9,
+      "name": "Home Showing Feedback Form",
+      "description": "Feedback form template for realtors to collect buyer impressions and comments after property showings.",
+      "category": "Realtor Tools",
+      "type": "Form Template"
+    },
+    {
+      "id": 10,
+      "name": "Host Planner",
+      "description": "Comprehensive planner template for short-term rental hosts to manage bookings, guests, maintenance, and property operations.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Planner"
+    },
+    {
+      "id": 11,
+      "name": "House Hunting Checklist",
+      "description": "Organized checklist template for home buyers to evaluate and compare properties during the house hunting process.",
+      "category": "Home Buying",
+      "type": "Checklist"
+    },
+    {
+      "id": 12,
+      "name": "House Rules",
+      "description": "House rules template for rental properties outlining guest expectations, policies, and property guidelines.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Rules Template"
+    },
+    {
+      "id": 13,
+      "name": "Instagram Post - Realtor",
+      "description": "Social media post templates designed for realtors to market properties and build their brand on Instagram.",
+      "category": "Realtor Marketing",
+      "type": "Social Media Template"
+    },
+    {
+      "id": 14,
+      "name": "Instagram Stories - Realtor",
+      "description": "Instagram stories templates for realtors to showcase listings, share tips, and engage with potential clients.",
+      "category": "Realtor Marketing",
+      "type": "Social Media Template"
+    },
+    {
+      "id": 15,
+      "name": "Local Recommendation List",
+      "description": "Curated list template for hosts to share local restaurant, activity, and service recommendations with guests.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "List Template"
+    },
+    {
+      "id": 16,
+      "name": "Moving Timeline Planner",
+      "description": "Timeline planner template to help homeowners organize and schedule all tasks involved in the moving process.",
+      "category": "Home Buying",
+      "type": "Planner"
+    },
+    {
+      "id": 17,
+      "name": "Neighborhood Comparison Sheet",
+      "description": "Comparison sheet template for evaluating different neighborhoods based on amenities, schools, safety, and other factors.",
+      "category": "Home Buying",
+      "type": "Worksheet"
+    },
+    {
+      "id": 18,
+      "name": "New Homeowner Checklist",
+      "description": "Comprehensive checklist template for new homeowners covering essential tasks after purchasing a property.",
+      "category": "Home Buying",
+      "type": "Checklist"
+    },
+    {
+      "id": 19,
+      "name": "Property Inspection Checklist",
+      "description": "Detailed inspection checklist template for evaluating property condition during buying or rental processes.",
+      "category": "Property Management",
+      "type": "Checklist"
+    },
+    {
+      "id": 20,
+      "name": "Property Listing Flyers (For Sale)",
+      "description": "Professional flyer templates for marketing properties for sale with property details and photos.",
+      "category": "Realtor Marketing",
+      "type": "Flyer Template"
+    },
+    {
+      "id": 21,
+      "name": "Property Maintenance Log",
+      "description": "Maintenance tracking log template for property managers to record repairs, services, and upkeep activities.",
+      "category": "Property Management",
+      "type": "Log Template"
+    },
+    {
+      "id": 22,
+      "name": "Realtor Business Card",
+      "description": "Professional business card template designed for real estate agents to share contact information.",
+      "category": "Realtor Marketing",
+      "type": "Business Card Template"
+    },
+    {
+      "id": 23,
+      "name": "Realtor Thank You Card",
+      "description": "Thank you card template for realtors to express appreciation to clients after transactions.",
+      "category": "Realtor Tools",
+      "type": "Card Template"
+    },
+    {
+      "id": 24,
+      "name": "Realtor Welcome Guide Booklet",
+      "description": "Welcome guide booklet template for realtors to provide new clients with information about their services and the buying/selling process.",
+      "category": "Realtor Tools",
+      "type": "Guide Booklet"
+    },
+    {
+      "id": 25,
+      "name": "Rental Agreement Template",
+      "description": "Legal rental agreement template outlining terms, conditions, and responsibilities for landlords and tenants.",
+      "category": "Landlord Tools",
+      "type": "Contract Template"
+    },
+    {
+      "id": 26,
+      "name": "Rental Property Flyers",
+      "description": "Marketing flyer templates for advertising rental properties with property details and contact information.",
+      "category": "Landlord Tools",
+      "type": "Flyer Template"
+    },
+    {
+      "id": 27,
+      "name": "Rental Property Tracker For Landlords",
+      "description": "Tracking spreadsheet template for landlords to manage multiple rental properties, tenants, and lease information.",
+      "category": "Landlord Tools",
+      "type": "Tracker"
+    },
+    {
+      "id": 28,
+      "name": "Review Request Cards",
+      "description": "Card template for hosts to request guest reviews after their stay at rental properties.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Card Template"
+    },
+    {
+      "id": 29,
+      "name": "Security Guide",
+      "description": "Security guide template providing guests with safety information, emergency contacts, and security procedures for the property.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Guide Template"
+    },
+    {
+      "id": 30,
+      "name": "Tenant Screening Forms",
+      "description": "Application and screening form templates for landlords to evaluate potential tenants.",
+      "category": "Landlord Tools",
+      "type": "Form Template"
+    },
+    {
+      "id": 31,
+      "name": "Utility Setup Checklist",
+      "description": "Checklist template for new homeowners or tenants to set up utilities and essential services.",
+      "category": "Home Buying",
+      "type": "Checklist"
+    },
+    {
+      "id": 32,
+      "name": "WiFi Password Display",
+      "description": "Decorative display template for sharing WiFi network name and password with guests.",
+      "category": "Airbnb & Short-Term Rentals",
+      "type": "Signage"
+    },
+    {
+      "id": 33,
+      "name": "Landlord Expense Tracker",
+      "description": "Expense tracking spreadsheet template for landlords to monitor property-related costs and expenditures.",
+      "category": "Landlord Tools",
+      "type": "Tracker"
+    },
+    {
+      "id": 34,
+      "name": "Property Investment Calculator",
+      "description": "ROI calculator template for analyzing potential real estate investments and returns.",
+      "category": "Landlord Tools",
+      "type": "Calculator"
+    },
+    {
+      "id": 35,
+      "name": "Rent Collection Tracker",
+      "description": "Tracking spreadsheet template for landlords to monitor rent payments, due dates, and collection status.",
+      "category": "Landlord Tools",
+      "type": "Tracker"
+    },
+    {
+      "id": 36,
+      "name": "Rental Income Tracker",
+      "description": "Income tracking spreadsheet template for landlords to record and analyze rental revenue.",
+      "category": "Landlord Tools",
+      "type": "Tracker"
+    },
+    {
+      "id": 37,
+      "name": "Mortgage Payment Tracker",
+      "description": "Payment tracking spreadsheet template for homeowners to monitor mortgage payments, balances, and amortization.",
+      "category": "Home Buying",
+      "type": "Tracker"
+    }
+  ]
+}
