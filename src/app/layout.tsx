@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Space_Grotesk, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { Toaster } from "sonner";
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-outfit",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,28 +20,22 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "PropTemplates | Professional Real Estate Digital Products",
+  title: "PromptVault | Premium AI Prompts & Automation Tools",
   description:
-    "Premium digital templates, checklists, and guides for Airbnb hosts, landlords, realtors, and home buyers. Streamline your real estate business today.",
+    "Premium prompt packs and AI automation tools for power users. Supercharge your workflow with expertly crafted prompts for ChatGPT, Claude, and more.",
   keywords: [
-    "real estate templates",
-    "airbnb host templates",
-    "landlord tools",
-    "property management",
-    "realtor marketing",
-    "home buying checklist",
+    "AI prompts",
+    "ChatGPT prompts",
+    "prompt engineering",
+    "AI automation",
+    "prompt packs",
+    "AI tools",
   ],
   openGraph: {
-    title: "PropTemplates | Professional Real Estate Digital Products",
+    title: "PromptVault | Premium AI Prompts & Automation Tools",
     description:
-      "Premium digital templates, checklists, and guides for real estate professionals.",
+      "Premium prompt packs and AI automation tools for power users.",
     type: "website",
   },
 };
@@ -46,9 +46,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${dmSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} font-sans antialiased`}
+        className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         <ConvexClientProvider>
           {children}

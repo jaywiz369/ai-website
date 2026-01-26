@@ -1,17 +1,22 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useState } from "react";
+import { useQuery, useMutation } from "convex/react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
+import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatPrice } from "@/lib/utils";
+import { BundleFormModal } from "@/components/admin/bundle-form-modal";
 
 interface Bundle {
-  _id: string;
+  _id: Id<"bundles">;
   name: string;
+  slug: string;
   description: string;
+  productIds: Id<"products">[];
   price: number;
   originalPrice: number;
   discountPercent: number;
@@ -20,7 +25,37 @@ interface Bundle {
 }
 
 export default function AdminBundlesPage() {
-  const bundles = useQuery(api.bundles.list) as Bundle[] | undefined;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingBundle, setEditingBundle] = useState<Bundle | undefined>(undefined);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<Id<"bundles"> | null>(null);
+
+  const bundles = useQuery(api.bundles.listAll) as Bundle[] | undefined;
+  const removeBundle = useMutation(api.bundles.remove);
+
+  const handleAddClick = () => {
+    setEditingBundle(undefined);
+    setModalOpen(true);
+  };
+
+  const handleEditClick = (bundle: Bundle) => {
+    setEditingBundle(bundle);
+    setModalOpen(true);
+  };
+
+  const handleDeleteClick = (bundleId: Id<"bundles">) => {
+    setDeleteConfirmId(bundleId);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (deleteConfirmId) {
+      await removeBundle({ id: deleteConfirmId });
+      setDeleteConfirmId(null);
+    }
+  };
+
+  const handleModalSuccess = () => {
+    setEditingBundle(undefined);
+  };
 
   return (
     <div>
@@ -31,7 +66,7 @@ export default function AdminBundlesPage() {
             Manage product bundles
           </p>
         </div>
-        <Button>
+        <Button onClick={handleAddClick}>
           <Plus className="mr-2 h-4 w-4" />
           Create Bundle
         </Button>
@@ -125,16 +160,40 @@ export default function AdminBundlesPage() {
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="icon">
-                            <Pencil className="h-4 w-4" />
-                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="text-destructive hover:text-destructive"
+                            onClick={() => handleEditClick(bundle)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Pencil className="h-4 w-4" />
                           </Button>
+                          {deleteConfirmId === bundle._id ? (
+                            <div className="flex gap-1">
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={handleDeleteConfirm}
+                              >
+                                Confirm
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setDeleteConfirmId(null)}
+                              >
+                                Cancel
+                              </Button>
+                            </div>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteClick(bundle._id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -145,6 +204,13 @@ export default function AdminBundlesPage() {
           </div>
         </CardContent>
       </Card>
+
+      <BundleFormModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        bundle={editingBundle}
+        onSuccess={handleModalSuccess}
+      />
     </div>
   );
 }

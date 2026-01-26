@@ -21,9 +21,9 @@ export default function CategoriesPage() {
     <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <h1 className="font-serif text-3xl sm:text-4xl">Categories</h1>
+        <h1 className="font-display text-3xl sm:text-4xl font-bold">Categories</h1>
         <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
-          Browse templates by category to find exactly what you need.
+          Browse prompts by category to find exactly what you need.
         </p>
       </div>
 
@@ -31,7 +31,7 @@ export default function CategoriesPage() {
       {categories === undefined ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-40" />
+            <Skeleton key={i} className="h-40 rounded-lg" />
           ))}
         </div>
       ) : (
@@ -40,9 +40,9 @@ export default function CategoriesPage() {
             <Link
               key={category._id}
               href={`/categories/${category.slug}`}
-              className="group border border-border p-8 transition-all hover:border-foreground/20 hover:bg-muted/50"
+              className="group rounded-lg border border-border bg-card p-8 transition-all duration-300 hover:border-primary/50 hover:glow-sm"
             >
-              <h2 className="font-serif text-xl group-hover:text-accent transition-colors">
+              <h2 className="font-display text-xl font-semibold group-hover:text-primary transition-colors">
                 {category.name}
               </h2>
               <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
@@ -52,7 +52,7 @@ export default function CategoriesPage() {
                 <span className="text-sm font-medium">
                   {category.productCount} products
                 </span>
-                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </div>
             </Link>
           ))}

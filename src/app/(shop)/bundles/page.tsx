@@ -24,10 +24,10 @@ export default function BundlesPage() {
     <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <h1 className="font-serif text-3xl sm:text-4xl">Template Bundles</h1>
+        <h1 className="font-display text-3xl sm:text-4xl font-bold">Prompt Bundles</h1>
         <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
-          Get complete toolkits at discounted prices. Each bundle includes all
-          templates from a specific category.
+          Get complete prompt collections at discounted prices. Each bundle includes
+          curated prompts optimized for specific workflows.
         </p>
       </div>
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useQuery } from "convex/react";
-import { CheckCircle, Download, Mail } from "lucide-react";
+import { CheckCircle, Download, Mail, ExternalLink } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -18,10 +18,12 @@ interface DownloadToken {
   product?: {
     _id: string;
     name: string;
+    fileId?: string;
+    deliveryUrl?: string;
   } | null;
 }
 
-export default function CheckoutSuccessPage() {
+function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
@@ -144,12 +146,29 @@ export default function CheckoutSuccessPage() {
                   <span className="text-sm font-medium">
                     {token.product?.name}
                   </span>
-                  <Button size="sm" variant="outline" asChild>
-                    <Link href={`/download/${token.token}`}>
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Link>
-                  </Button>
+                  {token.product?.deliveryUrl ? (
+                    <Button size="sm" variant="outline" asChild>
+                      <a
+                        href={token.product.deliveryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Open in Canva
+                      </a>
+                    </Button>
+                  ) : token.product?.fileId ? (
+                    <Button size="sm" variant="outline" asChild>
+                      <Link href={`/download/${token.token}`}>
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                      </Link>
+                    </Button>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">
+                      File not available
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -182,5 +201,26 @@ export default function CheckoutSuccessPage() {
         </Button>
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="mx-auto max-w-3xl px-6 py-12 lg:px-8">
+      <div className="text-center mb-8">
+        <Skeleton className="h-16 w-16 rounded-full mx-auto mb-4" />
+        <Skeleton className="h-8 w-64 mx-auto mb-2" />
+        <Skeleton className="h-4 w-48 mx-auto" />
+      </div>
+      <Skeleton className="h-64 w-full" />
+    </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }

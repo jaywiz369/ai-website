@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import {
   LayoutDashboard,
   Package,
@@ -6,11 +10,14 @@ import {
   Settings,
   Layers,
   BarChart3,
+  LogOut,
+  FolderTree,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Package },
+  { name: "Categories", href: "/admin/categories", icon: FolderTree },
   { name: "Bundles", href: "/admin/bundles", icon: Layers },
   { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
@@ -22,13 +29,16 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const branding = useQuery(api.settings.getBranding);
+  const storeName = branding?.storeName ?? "Admin";
+
   return (
     <div className="min-h-screen bg-muted/30">
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-background border-r border-border">
         <div className="flex h-16 items-center border-b border-border px-6">
           <Link href="/admin" className="font-serif text-xl">
-            Prop<span className="text-accent">Templates</span>
+            {storeName}
           </Link>
         </div>
         <nav className="p-4 space-y-1">
@@ -43,13 +53,20 @@ export default function AdminLayout({
             </Link>
           ))}
         </nav>
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-4 left-4 right-4 space-y-2">
           <Link
             href="/"
             className="flex items-center justify-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground border border-border"
           >
             View Store
           </Link>
+          <a
+            href="/api/admin/auth"
+            className="flex items-center justify-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground border border-border"
+          >
+            <LogOut className="h-4 w-4" />
+            Logout
+          </a>
         </div>
       </aside>
 

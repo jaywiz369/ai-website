@@ -113,6 +113,41 @@ export const update = mutation({
   },
 });
 
+export const remove = mutation({
+  args: { id: v.id("bundles") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});
+
+export const listAll = query({
+  args: {},
+  handler: async (ctx) => {
+    const bundles = await ctx.db.query("bundles").collect();
+
+    const bundlesWithProducts = await Promise.all(
+      bundles.map(async (bundle) => {
+        const products = await Promise.all(
+          bundle.productIds.map((id) => ctx.db.get(id))
+        );
+        const validProducts = products.filter(Boolean);
+        const originalPrice = validProducts.reduce(
+          (sum, p) => sum + (p?.price ?? 0),
+          0
+        );
+        return {
+          ...bundle,
+          products: validProducts,
+          originalPrice,
+          savings: originalPrice - bundle.price,
+        };
+      })
+    );
+
+    return bundlesWithProducts;
+  },
+});
+
 export const seed = mutation({
   args: {},
   handler: async (ctx) => {

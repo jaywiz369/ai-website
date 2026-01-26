@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useQuery } from "convex/react";
+import Image from "next/image";
 import { ArrowLeft, Check, ShoppingBag } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -81,13 +82,22 @@ export default function ProductDetailPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Preview */}
         <div className="border border-border">
-          <div className="aspect-square bg-muted/50 flex items-center justify-center">
-            <div className="text-center p-8">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
-                Preview
-              </p>
-              <p className="text-lg font-medium">{product.type}</p>
-            </div>
+          <div className="aspect-square bg-muted/50 flex items-center justify-center relative overflow-hidden">
+            {product.previewUrl ? (
+              <Image
+                src={product.previewUrl}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="text-center p-8">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+                  Preview
+                </p>
+                <p className="text-lg font-medium">{product.type}</p>
+              </div>
+            )}
           </div>
         </div>
 

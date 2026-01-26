@@ -6,7 +6,10 @@ export default defineSchema({
     name: v.string(),
     slug: v.string(),
     description: v.string(),
-  }).index("by_slug", ["slug"]),
+    parentId: v.optional(v.id("categories")),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_parent", ["parentId"]),
 
   products: defineTable({
     name: v.string(),
@@ -16,7 +19,9 @@ export default defineSchema({
     type: v.string(),
     price: v.number(),
     previewUrl: v.optional(v.string()),
+    previewImageId: v.optional(v.id("_storage")), // Storage ID for preview image cleanup
     fileId: v.optional(v.id("_storage")),
+    deliveryUrl: v.optional(v.string()), // For Canva links or external delivery URLs
     isActive: v.boolean(),
     createdAt: v.number(),
   })
@@ -70,4 +75,9 @@ export default defineSchema({
   })
     .index("by_token", ["token"])
     .index("by_order", ["orderId"]),
+
+  settings: defineTable({
+    key: v.string(),
+    value: v.string(),
+  }).index("by_key", ["key"]),
 });

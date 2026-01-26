@@ -48,9 +48,9 @@ export default function ProductsPage() {
     <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="font-serif text-3xl sm:text-4xl">All Products</h1>
+        <h1 className="font-display text-3xl sm:text-4xl font-bold">All Products</h1>
         <p className="mt-2 text-muted-foreground">
-          Browse our complete collection of real estate templates.
+          Browse our complete collection of premium AI prompts and automation tools.
         </p>
       </div>
 

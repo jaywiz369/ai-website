@@ -15,9 +15,10 @@ export const list = query({
 
     // Filter by category
     if (args.categorySlug) {
+      const categorySlug = args.categorySlug;
       const category = await ctx.db
         .query("categories")
-        .withIndex("by_slug", (q) => q.eq("slug", args.categorySlug))
+        .withIndex("by_slug", (q) => q.eq("slug", categorySlug))
         .first();
 
       if (category) {
@@ -121,7 +122,9 @@ export const create = mutation({
     type: v.string(),
     price: v.number(),
     previewUrl: v.optional(v.string()),
+    previewImageId: v.optional(v.id("_storage")),
     fileId: v.optional(v.id("_storage")),
+    deliveryUrl: v.optional(v.string()),
     isActive: v.boolean(),
   },
   handler: async (ctx, args) => {
@@ -142,11 +145,47 @@ export const update = mutation({
     type: v.optional(v.string()),
     price: v.optional(v.number()),
     previewUrl: v.optional(v.string()),
+    previewImageId: v.optional(v.id("_storage")),
     fileId: v.optional(v.id("_storage")),
+    deliveryUrl: v.optional(v.string()),
     isActive: v.optional(v.boolean()),
+    clearPreviewImage: v.optional(v.boolean()), // Flag to clear preview image
+    clearDeliveryUrl: v.optional(v.boolean()), // Flag to clear delivery URL
   },
   handler: async (ctx, args) => {
-    const { id, ...updates } = args;
+    const { id, clearPreviewImage, clearDeliveryUrl, ...updates } = args;
+
+    // Get existing product to check for old preview image
+    const existingProduct = await ctx.db.get(id);
+
+    // If updating preview image or clearing it, delete the old one from storage
+    if (existingProduct?.previewImageId) {
+      const isNewImage = updates.previewImageId && updates.previewImageId !== existingProduct.previewImageId;
+      if (isNewImage || clearPreviewImage) {
+        await ctx.storage.delete(existingProduct.previewImageId);
+      }
+    }
+
+    // If clearing preview image, set both fields to undefined
+    if (clearPreviewImage) {
+      await ctx.db.patch(id, {
+        previewUrl: undefined,
+        previewImageId: undefined,
+      });
+    }
+
+    // If clearing delivery URL, set it to undefined
+    if (clearDeliveryUrl) {
+      await ctx.db.patch(id, {
+        deliveryUrl: undefined,
+      });
+    }
+
+    // If only clearing fields without other updates, return early
+    if ((clearPreviewImage || clearDeliveryUrl) && Object.keys(updates).length === 0) {
+      return await ctx.db.get(id);
+    }
+
     const filteredUpdates = Object.fromEntries(
       Object.entries(updates).filter(([, value]) => value !== undefined)
     );
@@ -158,7 +197,48 @@ export const update = mutation({
 export const remove = mutation({
   args: { id: v.id("products") },
   handler: async (ctx, args) => {
+    // Get product to check for preview image
+    const product = await ctx.db.get(args.id);
+
+    // Delete preview image from storage if exists
+    if (product?.previewImageId) {
+      await ctx.storage.delete(product.previewImageId);
+    }
+
+    // Delete the product
     await ctx.db.delete(args.id);
+  },
+});
+
+export const listAll = query({
+  args: {
+    search: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let products = await ctx.db.query("products").collect();
+
+    // Filter by search term if provided
+    if (args.search) {
+      const searchLower = args.search.toLowerCase();
+      products = products.filter(
+        (p) =>
+          p.name.toLowerCase().includes(searchLower) ||
+          p.description.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Get category info for each product
+    const productsWithCategory = await Promise.all(
+      products.map(async (product) => {
+        const category = await ctx.db.get(product.categoryId);
+        return {
+          ...product,
+          category,
+        };
+      })
+    );
+
+    return productsWithCategory;
   },
 });
 

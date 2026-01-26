@@ -1,44 +1,44 @@
-import Link from "next/link";
+"use client";
 
-const footerNavigation = {
-  products: [
-    { name: "All Products", href: "/products" },
-    { name: "Bundles", href: "/bundles" },
-    { name: "Airbnb Templates", href: "/categories/airbnb-short-term-rentals" },
-    { name: "Landlord Tools", href: "/categories/landlord-tools" },
-  ],
-  categories: [
-    { name: "Home Buying", href: "/categories/home-buying" },
-    { name: "Realtor Marketing", href: "/categories/realtor-marketing" },
-    { name: "Property Management", href: "/categories/property-management" },
-  ],
-  support: [
-    { name: "Contact", href: "/contact" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Download Help", href: "/download-help" },
-  ],
-  legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Refund Policy", href: "/refunds" },
-  ],
-};
+import Link from "next/link";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+
+const supportLinks = [
+  { name: "Contact", href: "/contact" },
+  { name: "FAQ", href: "/faq" },
+  { name: "Download Help", href: "/download-help" },
+];
+
+const legalLinks = [
+  { name: "Privacy Policy", href: "/privacy" },
+  { name: "Terms of Service", href: "/terms" },
+  { name: "Refund Policy", href: "/refunds" },
+];
 
 export function Footer() {
+  const branding = useQuery(api.settings.getBranding);
+  const categories = useQuery(api.categories.getTopLevel);
+
+  const storeName = branding?.storeName ?? "PromptVault";
+  const storeTagline = branding?.storeTagline ?? "AI Prompts & Automation Tools";
+
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+    <footer className="relative border-t border-border bg-card overflow-hidden">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 bg-grid opacity-20" />
+
+      <div className="relative mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="font-serif text-2xl tracking-tight">
-                Prop<span className="text-accent">Templates</span>
+            <Link href="/" className="inline-block group">
+              <span className="font-display text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                {storeName}
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Professional digital templates for real estate professionals,
-              landlords, and property managers.
+              {storeTagline}
             </p>
           </div>
 
@@ -46,45 +46,61 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold">Products</h3>
+                <h3 className="text-sm font-display font-semibold">Products</h3>
                 <ul role="list" className="mt-4 space-y-3">
-                  {footerNavigation.products.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-foreground"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
+                  <li>
+                    <Link
+                      href="/products"
+                      className="text-sm text-muted-foreground nav-glow"
+                    >
+                      All Products
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/bundles"
+                      className="text-sm text-muted-foreground nav-glow"
+                    >
+                      Bundles
+                    </Link>
+                  </li>
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold">Categories</h3>
+                <h3 className="text-sm font-display font-semibold">Categories</h3>
                 <ul role="list" className="mt-4 space-y-3">
-                  {footerNavigation.categories.map((item) => (
-                    <li key={item.name}>
+                  {categories?.slice(0, 4).map((category) => (
+                    <li key={category._id}>
                       <Link
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-foreground"
+                        href={`/categories/${category.slug}`}
+                        className="text-sm text-muted-foreground nav-glow"
                       >
-                        {item.name}
+                        {category.name}
                       </Link>
                     </li>
                   ))}
+                  {(!categories || categories.length === 0) && (
+                    <li>
+                      <Link
+                        href="/categories"
+                        className="text-sm text-muted-foreground nav-glow"
+                      >
+                        Browse All
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold">Support</h3>
+                <h3 className="text-sm font-display font-semibold">Support</h3>
                 <ul role="list" className="mt-4 space-y-3">
-                  {footerNavigation.support.map((item) => (
+                  {supportLinks.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-muted-foreground hover:text-foreground"
+                        className="text-sm text-muted-foreground nav-glow"
                       >
                         {item.name}
                       </Link>
@@ -93,13 +109,13 @@ export function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold">Legal</h3>
+                <h3 className="text-sm font-display font-semibold">Legal</h3>
                 <ul role="list" className="mt-4 space-y-3">
-                  {footerNavigation.legal.map((item) => (
+                  {legalLinks.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-muted-foreground hover:text-foreground"
+                        className="text-sm text-muted-foreground nav-glow"
                       >
                         {item.name}
                       </Link>
@@ -114,7 +130,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 border-t border-border pt-8">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} PropTemplates. All rights reserved.
+            &copy; {new Date().getFullYear()} {storeName}. All rights reserved.
           </p>
         </div>
       </div>

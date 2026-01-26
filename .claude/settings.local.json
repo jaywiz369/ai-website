@@ -5,7 +5,20 @@
       "Bash(npm install:*)",
       "Bash(npx tsc --noEmit)",
       "Bash(npx tsc:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(dir /b \"C:\\\\Users\\\\jelan\\\\OneDrive\\\\Documents\\\\ecom\")",
+      "Bash(ls:*)",
+      "Bash(npx convex codegen)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"Cache cleared\")",
+      "Bash(taskkill:*)",
+      "Bash(pkill:*)",
+      "Bash(dir \"C:\\\\projects.dev\\\\ecom\\\\src\\\\components\")",
+      "Bash(winget install:*)",
+      "Bash(dir:*)",
+      "Bash(find:*)"
     ]
   }
 }

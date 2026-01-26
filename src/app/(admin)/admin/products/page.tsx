@@ -1,28 +1,65 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "convex/react";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { useQuery, useMutation } from "convex/react";
+import Image from "next/image";
+import { Plus, Pencil, Trash2, Search, ImageIcon } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
+import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatPrice } from "@/lib/utils";
+import { ProductFormModal } from "@/components/admin/product-form-modal";
 
 interface Product {
-  _id: string;
+  _id: Id<"products">;
   name: string;
+  slug: string;
   description: string;
   type: string;
   price: number;
   isActive: boolean;
+  categoryId: Id<"categories">;
+  previewUrl?: string;
+  fileId?: Id<"_storage">;
   category?: { name: string } | null;
 }
 
 export default function AdminProductsPage() {
   const [search, setSearch] = useState("");
-  const products = useQuery(api.products.list, { search: search || undefined }) as Product[] | undefined;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | undefined>(undefined);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<Id<"products"> | null>(null);
+
+  const products = useQuery(api.products.listAll, { search: search || undefined }) as Product[] | undefined;
+  const removeProduct = useMutation(api.products.remove);
+
+  const handleAddClick = () => {
+    setEditingProduct(undefined);
+    setModalOpen(true);
+  };
+
+  const handleEditClick = (product: Product) => {
+    setEditingProduct(product);
+    setModalOpen(true);
+  };
+
+  const handleDeleteClick = (productId: Id<"products">) => {
+    setDeleteConfirmId(productId);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (deleteConfirmId) {
+      await removeProduct({ id: deleteConfirmId });
+      setDeleteConfirmId(null);
+    }
+  };
+
+  const handleModalSuccess = () => {
+    setEditingProduct(undefined);
+  };
 
   return (
     <div>
@@ -33,7 +70,7 @@ export default function AdminProductsPage() {
             Manage your digital products
           </p>
         </div>
-        <Button>
+        <Button onClick={handleAddClick}>
           <Plus className="mr-2 h-4 w-4" />
           Add Product
         </Button>
@@ -57,6 +94,9 @@ export default function AdminProductsPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
+                  <th className="text-left p-4 text-sm font-medium text-muted-foreground w-20">
+                    Image
+                  </th>
                   <th className="text-left p-4 text-sm font-medium text-muted-foreground">
                     Product
                   </th>
@@ -80,13 +120,13 @@ export default function AdminProductsPage() {
               <tbody>
                 {products === undefined ? (
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                    <td colSpan={7} className="p-8 text-center text-muted-foreground">
                       Loading...
                     </td>
                   </tr>
                 ) : products.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                    <td colSpan={7} className="p-8 text-center text-muted-foreground">
                       No products found.
                     </td>
                   </tr>
@@ -96,6 +136,22 @@ export default function AdminProductsPage() {
                       key={product._id}
                       className="border-b border-border last:border-0"
                     >
+                      <td className="p-4">
+                        <div className="w-16 h-12 relative bg-muted/50 border border-border overflow-hidden">
+                          {product.previewUrl ? (
+                            <Image
+                              src={product.previewUrl}
+                              alt={product.name}
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <ImageIcon className="h-4 w-4 text-muted-foreground" />
+                            </div>
+                          )}
+                        </div>
+                      </td>
                       <td className="p-4">
                         <div>
                           <p className="font-medium">{product.name}</p>
@@ -126,16 +182,40 @@ export default function AdminProductsPage() {
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="icon">
-                            <Pencil className="h-4 w-4" />
-                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="text-destructive hover:text-destructive"
+                            onClick={() => handleEditClick(product)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Pencil className="h-4 w-4" />
                           </Button>
+                          {deleteConfirmId === product._id ? (
+                            <div className="flex gap-1">
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                onClick={handleDeleteConfirm}
+                              >
+                                Confirm
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setDeleteConfirmId(null)}
+                              >
+                                Cancel
+                              </Button>
+                            </div>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteClick(product._id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -146,6 +226,13 @@ export default function AdminProductsPage() {
           </div>
         </CardContent>
       </Card>
+
+      <ProductFormModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        product={editingProduct}
+        onSuccess={handleModalSuccess}
+      />
     </div>
   );
 }
