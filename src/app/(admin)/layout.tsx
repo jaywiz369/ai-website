@@ -12,17 +12,20 @@ import {
   BarChart3,
   LogOut,
   FolderTree,
+  FileText,
 } from "lucide-react";
+
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Products", href: "/admin/products", icon: Package },
   { name: "Categories", href: "/admin/categories", icon: FolderTree },
-  { name: "Bundles", href: "/admin/bundles", icon: Layers },
+  { name: "Products", href: "/admin/products", icon: Package },
+  { name: "Blog", href: "/admin/posts", icon: FileText },
   { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
+
 
 export default function AdminLayout({
   children,

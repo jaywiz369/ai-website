@@ -9,10 +9,11 @@ import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const staticNavigation = [
-  { name: "Products", href: "/products" },
-  { name: "Bundles", href: "/bundles" },
+// Static links now only include specialized content
+const rightNavigation = [
+  { name: "Blog", href: "/blog" },
 ];
+
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -55,26 +56,9 @@ export function Header() {
           </button>
         </div>
 
-        {/* Desktop navigation */}
+        {/* Desktop navigation - Left (Categories) */}
         <div className="hidden lg:flex lg:items-center lg:gap-x-8">
-          {/* Static navigation */}
-          {staticNavigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground nav-glow"
-            >
-              {item.name}
-            </Link>
-          ))}
-
-          {/* Separator */}
-          {categories && categories.length > 0 && (
-            <div className="h-4 w-px bg-border" />
-          )}
-
-          {/* Dynamic category navigation */}
-          {categories?.slice(0, 4).map((category) => (
+          {categories?.slice(0, 5).map((category) => (
             <Link
               key={category._id}
               href={`/categories/${category.slug}`}
@@ -85,8 +69,28 @@ export function Header() {
           ))}
         </div>
 
-        {/* Cart button */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        {/* Desktop navigation - Right (Utility) */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-6">
+          {rightNavigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-sm font-medium text-muted-foreground nav-glow"
+            >
+              {item.name}
+            </Link>
+          ))}
+
+          <div className="h-4 w-px bg-border" />
+
+          {/* Account placeholder */}
+          <Link
+            href="/login"
+            className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
+          >
+            Sign In
+          </Link>
+
           <Button
             variant="ghost"
             size="icon"
@@ -133,40 +137,40 @@ export function Header() {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-border">
-              {/* Static navigation */}
+              {/* Main navigation */}
               <div className="space-y-1 py-6">
-                {staticNavigation.map((item) => (
+                {categories?.map((category) => (
+                  <Link
+                    key={category._id}
+                    href={`/categories/${category.slug}`}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Secondary navigation */}
+              <div className="space-y-1 py-6">
+                {rightNavigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-muted-foreground hover:bg-muted transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
+                <Link
+                  href="/login"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-primary hover:bg-muted transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Sign In / Create Account
+                </Link>
               </div>
-
-              {/* Category navigation */}
-              {categories && categories.length > 0 && (
-                <div className="py-6">
-                  <p className="px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                    Categories
-                  </p>
-                  <div className="space-y-1">
-                    {categories.map((category) => (
-                      <Link
-                        key={category._id}
-                        href={`/categories/${category.slug}`}
-                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {category.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               {/* Cart button */}
               <div className="py-6">

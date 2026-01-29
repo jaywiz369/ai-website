@@ -16,11 +16,9 @@ interface Order {
 
 export default function AdminDashboardPage() {
   const products = useQuery(api.products.list, {});
-  const bundles = useQuery(api.bundles.list);
   const orders = useQuery(api.orders.listAll) as Order[] | undefined;
 
   const totalProducts = products?.length ?? 0;
-  const totalBundles = bundles?.length ?? 0;
   const totalOrders = orders?.filter((o: Order) => o.status === "completed").length ?? 0;
   const totalRevenue =
     orders
@@ -33,12 +31,6 @@ export default function AdminDashboardPage() {
       value: totalProducts,
       icon: Package,
       description: "Active templates",
-    },
-    {
-      name: "Bundles",
-      value: totalBundles,
-      icon: TrendingUp,
-      description: "Bundle offers",
     },
     {
       name: "Orders",
@@ -63,7 +55,7 @@ export default function AdminDashboardPage() {
       <h1 className="text-2xl font-semibold mb-8">Dashboard</h1>
 
       {/* Stats grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
         {stats.map((stat) => (
           <Card key={stat.name}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">

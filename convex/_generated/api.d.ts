@@ -8,11 +8,11 @@
  * @module
  */
 
-import type * as bundles from "../bundles.js";
 import type * as categories from "../categories.js";
 import type * as downloads from "../downloads.js";
 import type * as http from "../http.js";
 import type * as orders from "../orders.js";
+import type * as posts from "../posts.js";
 import type * as products from "../products.js";
 import type * as settings from "../settings.js";
 
@@ -23,11 +23,11 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  bundles: typeof bundles;
   categories: typeof categories;
   downloads: typeof downloads;
   http: typeof http;
   orders: typeof orders;
+  posts: typeof posts;
   products: typeof products;
   settings: typeof settings;
 }>;

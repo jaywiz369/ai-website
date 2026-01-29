@@ -29,18 +29,6 @@ export default defineSchema({
     .index("by_category", ["categoryId"])
     .index("by_active", ["isActive"]),
 
-  bundles: defineTable({
-    name: v.string(),
-    slug: v.string(),
-    description: v.string(),
-    productIds: v.array(v.id("products")),
-    price: v.number(),
-    discountPercent: v.number(),
-    isActive: v.boolean(),
-    createdAt: v.number(),
-  })
-    .index("by_slug", ["slug"])
-    .index("by_active", ["isActive"]),
 
   orders: defineTable({
     userId: v.optional(v.string()),
@@ -61,7 +49,6 @@ export default defineSchema({
   orderItems: defineTable({
     orderId: v.id("orders"),
     productId: v.optional(v.id("products")),
-    bundleId: v.optional(v.id("bundles")),
     price: v.number(),
   }).index("by_order", ["orderId"]),
 
@@ -80,4 +67,21 @@ export default defineSchema({
     key: v.string(),
     value: v.string(),
   }).index("by_key", ["key"]),
+
+  posts: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.string(),
+    content: v.string(),
+    mainImageId: v.optional(v.id("_storage")),
+    mainImageUrl: v.optional(v.string()),
+    isPublished: v.boolean(),
+
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_published", ["isPublished", "createdAt"]),
+
 });
+

@@ -10,7 +10,6 @@ export const create = mutation({
     items: v.array(
       v.object({
         productId: v.optional(v.id("products")),
-        bundleId: v.optional(v.id("bundles")),
         price: v.number(),
       })
     ),
@@ -28,7 +27,6 @@ export const create = mutation({
       await ctx.db.insert("orderItems", {
         orderId,
         productId: item.productId,
-        bundleId: item.bundleId,
         price: item.price,
       });
     }
@@ -63,19 +61,14 @@ export const getById = query({
     const itemsWithDetails = await Promise.all(
       items.map(async (item) => {
         let product = null;
-        let bundle = null;
 
         if (item.productId) {
           product = await ctx.db.get(item.productId);
-        }
-        if (item.bundleId) {
-          bundle = await ctx.db.get(item.bundleId);
         }
 
         return {
           ...item,
           product,
-          bundle,
         };
       })
     );
@@ -151,12 +144,6 @@ export const completeOrder = internalMutation({
     for (const item of items) {
       if (item.productId) {
         productIds.push(item.productId);
-      }
-      if (item.bundleId) {
-        const bundle = await ctx.db.get(item.bundleId);
-        if (bundle) {
-          productIds.push(...bundle.productIds);
-        }
       }
     }
 

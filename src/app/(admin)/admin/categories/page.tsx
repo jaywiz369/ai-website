@@ -172,9 +172,8 @@ export default function AdminCategoriesPage() {
     return (
       <div key={category._id}>
         <div
-          className={`flex items-center justify-between p-4 border-b border-border hover:bg-muted/50 ${
-            level > 0 ? "bg-muted/20" : ""
-          }`}
+          className={`flex items-center justify-between p-4 border-b border-border hover:bg-muted/50 ${level > 0 ? "bg-muted/20" : ""
+            }`}
           style={{ paddingLeft: `${1 + level * 1.5}rem` }}
         >
           <div className="flex items-center gap-3">
@@ -184,9 +183,8 @@ export default function AdminCategoriesPage() {
                 className="p-1 hover:bg-muted rounded"
               >
                 <ChevronRight
-                  className={`h-4 w-4 transition-transform ${
-                    isExpanded ? "rotate-90" : ""
-                  }`}
+                  className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-90" : ""
+                    }`}
                 />
               </button>
             ) : (
@@ -299,7 +297,7 @@ export default function AdminCategoriesPage() {
 
       {/* Category Form Modal */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-xl">
           <DialogHeader>
             <DialogTitle>
               {editingCategory ? "Edit Category" : "Create Category"}
@@ -390,8 +388,8 @@ export default function AdminCategoriesPage() {
                 {isSubmitting
                   ? "Saving..."
                   : editingCategory
-                  ? "Update Category"
-                  : "Create Category"}
+                    ? "Update Category"
+                    : "Create Category"}
               </Button>
             </DialogFooter>
           </form>

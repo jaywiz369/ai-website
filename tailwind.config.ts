@@ -54,6 +54,7 @@ const config: Config = {
         sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
         display: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
+        serif: ["var(--font-lora)", "ui-serif", "Georgia", "serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.2s ease-out",
@@ -86,7 +87,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;

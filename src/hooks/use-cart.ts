@@ -5,11 +5,10 @@ import { persist } from "zustand/middleware";
 
 export interface CartItem {
   id: string;
-  type: "product" | "bundle";
+  type: "product";
   name: string;
   price: number;
   quantity: number;
-  originalPrice?: number; // For bundles to show savings
 }
 
 interface CartStore {
@@ -88,14 +87,7 @@ export const useCart = create<CartStore>()(
         return get().items.reduce((count, item) => count + item.quantity, 0);
       },
 
-      getSavings: () => {
-        return get().items.reduce((savings, item) => {
-          if (item.originalPrice && item.originalPrice > item.price) {
-            return savings + (item.originalPrice - item.price) * item.quantity;
-          }
-          return savings;
-        }, 0);
-      },
+      getSavings: () => 0,
     }),
     {
       name: "cart-storage",

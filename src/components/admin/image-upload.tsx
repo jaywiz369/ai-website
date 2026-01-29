@@ -31,7 +31,7 @@ export function ImageUpload({
   // Sync urlInput when value changes externally (e.g., editing a different product)
   useEffect(() => {
     // Only sync if not a blob URL (blob URLs are temporary local previews)
-    if (!value.startsWith("blob:")) {
+    if (value && !value.startsWith("blob:")) {
       setUrlInput(value);
       setPreviewError(false);
     }
@@ -132,31 +132,43 @@ export function ImageUpload({
       {mode === "upload" && (
         <div className="space-y-2">
           <Label htmlFor="image-file">Upload Image</Label>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-3">
             <Input
               ref={fileInputRef}
               id="image-file"
               type="file"
               accept="image/*"
               onChange={handleFileSelect}
-              className="cursor-pointer"
+              className="hidden"
             />
-            {selectedFileName && (
+
+            {!selectedFileName ? (
               <Button
                 type="button"
-                variant="ghost"
-                size="icon"
-                onClick={handleClear}
+                variant="secondary"
+                className="w-full h-24 border-2 border-dashed border-input bg-muted/20 hover:bg-muted/30 hover:border-primary/50 transition-all flex flex-col gap-2"
+                onClick={() => fileInputRef.current?.click()}
               >
-                <X className="h-4 w-4" />
+                <Upload className="h-6 w-6 text-primary" />
+                <span>Click to browse images</span>
               </Button>
+            ) : (
+              <div className="flex items-center gap-2 p-3 border border-input bg-muted/30 rounded-md">
+                <ImageIcon className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium flex-1 truncate">
+                  {selectedFileName}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleClear}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             )}
           </div>
-          {selectedFileName && (
-            <p className="text-sm text-muted-foreground">
-              Selected: {selectedFileName}
-            </p>
-          )}
         </div>
       )}
 

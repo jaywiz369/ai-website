@@ -6,7 +6,6 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/products/product-grid";
-import { BundleCard } from "@/components/bundles/bundle-card";
 
 const features = [
   {
@@ -21,14 +20,13 @@ const features = [
   },
   {
     icon: Package,
-    title: "Bundle & Save",
-    description: "Get complete prompt packs at up to 35% off.",
+    title: "Premium Support",
+    description: "Get help from our experts anytime you need it.",
   },
 ];
 
 export default function HomePage() {
   const featuredProducts = useQuery(api.products.getFeatured, { limit: 6 });
-  const bundles = useQuery(api.bundles.list);
   const categories = useQuery(api.categories.getTopLevel);
   const branding = useQuery(api.settings.getBranding);
 
@@ -56,15 +54,15 @@ export default function HomePage() {
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               {heroDescription}
             </p>
-            <div className="mt-10 flex items-center justify-center gap-4">
-              <Button size="xl" variant="accent" className="glow-sm hover:glow-md transition-shadow" asChild>
-                <Link href="/products">
-                  Browse Products
-                  <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button size="xl" className="w-full sm:w-auto bg-primary text-primary-foreground hover:glow-md transition-all px-8 py-6 rounded-full text-lg font-bold" asChild>
+                <Link href="#categories">
+                  Explore Collections
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="xl" variant="outline" className="border-border hover:border-primary/50 hover:bg-primary/5" asChild>
-                <Link href="/bundles">View Bundles</Link>
+              <Button size="xl" variant="outline" className="w-full sm:w-auto border-border/50 hover:border-primary/50 hover:bg-primary/5 px-8 py-6 rounded-full text-lg font-medium backdrop-blur-sm" asChild>
+                <Link href="/blog">Read Our Guide</Link>
               </Button>
             </div>
           </div>
@@ -126,41 +124,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bundles */}
-      {bundles && bundles.length > 0 && (
-        <section className="relative border-t border-border bg-muted/30 py-16 lg:py-24 overflow-hidden">
-          {/* Subtle grid background */}
-          <div className="absolute inset-0 bg-grid-dense opacity-30" />
-
-          <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-3xl font-bold">Bundle & Save</h2>
-              <p className="mt-2 text-muted-foreground">
-                Get complete toolkits at discounted prices.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-              {bundles.slice(0, 4).map((bundle) => (
-                <BundleCard key={bundle._id} bundle={bundle} />
-              ))}
-            </div>
-
-            <div className="mt-10 text-center">
-              <Button variant="outline" className="border-border hover:border-primary/50 hover:bg-primary/5" asChild>
-                <Link href="/bundles">
-                  View All Bundles
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Categories */}
       {categories && categories.length > 0 && (
-        <section className="py-16 lg:py-24">
+        <section id="categories" className="py-16 lg:py-24 scroll-mt-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold">Browse by Category</h2>

@@ -56,14 +56,6 @@ export function Footer() {
                       All Products
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/bundles"
-                      className="text-sm text-muted-foreground nav-glow"
-                    >
-                      Bundles
-                    </Link>
-                  </li>
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
