@@ -20,7 +20,7 @@ export function Footer() {
   const branding = useQuery(api.settings.getBranding);
   const categories = useQuery(api.categories.getTopLevel);
 
-  const storeName = branding?.storeName ?? "PromptVault";
+  const storeName = branding?.storeName ?? "AgenticVault";
   const storeTagline = branding?.storeTagline ?? "AI Prompts & Automation Tools";
 
   return (

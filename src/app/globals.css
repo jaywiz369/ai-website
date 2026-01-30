@@ -4,52 +4,52 @@
 
 @layer base {
   :root {
-    /* Light Mode - Clean white + Electric Blue */
+    /* Light Mode - Clean white + Maroon/Red */
     --background: 0 0% 100%;
     --foreground: 0 0% 9%;
     --card: 0 0% 98%;
     --card-foreground: 0 0% 9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
-    --primary: 217 91% 60%;
+    --primary: 348 83% 47%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 217 91% 60%;
+    --accent: 348 83% 47%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 217 91% 60%;
+    --ring: 348 83% 47%;
     --radius: 0.5rem;
-    --glow: 217 91% 60%;
+    --glow: 348 83% 47%;
   }
 
   .dark {
-    /* Dark Mode - True black + Electric Blue */
+    /* Dark Mode - True black + Maroon/Red */
     --background: 0 0% 4%;
     --foreground: 0 0% 98%;
     --card: 0 0% 7%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 217 91% 60%;
+    --primary: 348 83% 47%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 64%;
-    --accent: 213 94% 68%;
+    --accent: 350 89% 60%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 217 91% 60%;
-    --glow: 217 91% 60%;
+    --ring: 348 83% 47%;
+    --glow: 348 83% 47%;
   }
 }
 
@@ -104,11 +104,9 @@ html {
 
 /* Dot Pattern */
 .bg-dots {
-  background-image: radial-gradient(
-    circle,
-    hsl(var(--muted-foreground) / 0.15) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle,
+      hsl(var(--muted-foreground) / 0.15) 1px,
+      transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -132,11 +130,9 @@ html {
 
 /* Gradient Text */
 .text-gradient {
-  background: linear-gradient(
-    135deg,
-    hsl(217 91% 60%),
-    hsl(213 94% 68%)
-  );
+  background: linear-gradient(135deg,
+      hsl(348 83% 47%),
+      hsl(350 89% 60%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -155,11 +151,9 @@ html {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--primary)),
-    hsl(var(--accent))
-  );
+  background: linear-gradient(135deg,
+      hsl(var(--primary)),
+      hsl(var(--accent)));
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);

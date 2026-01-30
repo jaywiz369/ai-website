@@ -11,6 +11,7 @@
 import type * as categories from "../categories.js";
 import type * as downloads from "../downloads.js";
 import type * as http from "../http.js";
+import type * as newsletter from "../newsletter.js";
 import type * as orders from "../orders.js";
 import type * as posts from "../posts.js";
 import type * as products from "../products.js";
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   categories: typeof categories;
   downloads: typeof downloads;
   http: typeof http;
+  newsletter: typeof newsletter;
   orders: typeof orders;
   posts: typeof posts;
   products: typeof products;

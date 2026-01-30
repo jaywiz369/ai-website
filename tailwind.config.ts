@@ -62,6 +62,8 @@ const config: Config = {
         "slide-in-right": "slideInRight 0.3s ease-out",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
         fadeIn: {
@@ -77,12 +79,20 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
         pulseGlow: {
-          "0%, 100%": { boxShadow: "0 0 15px -3px hsl(217 91% 60% / 0.3)" },
-          "50%": { boxShadow: "0 0 25px -3px hsl(217 91% 60% / 0.5)" },
+          "0%, 100%": { boxShadow: "0 0 15px -3px hsl(348 83% 47% / 0.3)" },
+          "50%": { boxShadow: "0 0 25px -3px hsl(348 83% 47% / 0.5)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
     },

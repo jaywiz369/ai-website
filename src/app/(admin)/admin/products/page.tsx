@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import Image from "next/image";
-import { Plus, Pencil, Trash2, Search, ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, ImageIcon, Star } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -20,10 +20,9 @@ interface Product {
   description: string;
   type: string;
   price: number;
-  isActive: boolean;
-  categoryId: Id<"categories">;
-  previewUrl?: string;
   fileId?: Id<"_storage">;
+  isActive: boolean;
+  isFeatured: boolean;
   category?: { name: string } | null;
 }
 
@@ -153,11 +152,18 @@ export default function AdminProductsPage() {
                         </div>
                       </td>
                       <td className="p-4">
-                        <div>
-                          <p className="font-medium">{product.name}</p>
-                          <p className="text-xs text-muted-foreground truncate max-w-xs">
-                            {product.description}
-                          </p>
+                        <div className="flex items-center gap-2">
+                          <div>
+                            <p className="font-medium flex items-center gap-2">
+                              {product.name}
+                              {product.isFeatured && (
+                                <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+                              )}
+                            </p>
+                            <p className="text-xs text-muted-foreground truncate max-w-xs">
+                              {product.description}
+                            </p>
+                          </div>
                         </div>
                       </td>
                       <td className="p-4">

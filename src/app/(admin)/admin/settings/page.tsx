@@ -109,7 +109,7 @@ export default function AdminSettingsPage() {
               <Input
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                placeholder="PromptVault"
+                placeholder="AgenticVault"
                 className="mt-1"
               />
               <p className="text-xs text-muted-foreground mt-1">
@@ -207,7 +207,7 @@ export default function AdminSettingsPage() {
               <Input
                 value={metaTitle}
                 onChange={(e) => setMetaTitle(e.target.value)}
-                placeholder="PromptVault - AI Prompts & Tools"
+                placeholder="AgenticVault.dev | AI Agents & Tools"
                 className="mt-1"
               />
               <p className="text-xs text-muted-foreground mt-1">

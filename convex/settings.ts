@@ -42,14 +42,14 @@ export const set = mutation({
 
 // Default branding values
 const brandingDefaults = {
-  storeName: "PromptVault",
-  storeTagline: "AI Prompts & Automation Tools",
-  heroHeadline: "Premium Prompts for AI Power Users",
-  heroDescription: "Curated prompt packs and automation tools to supercharge your AI workflow. Battle-tested, ready to use.",
-  ctaHeadline: "Ready to supercharge your AI workflow?",
-  ctaDescription: "Join thousands of creators using our premium prompts.",
-  metaTitle: "PromptVault - AI Prompts & Tools",
-  metaDescription: "Premium AI prompt packs and automation tools. Curated prompts for ChatGPT, Claude, Midjourney, and more.",
+  storeName: "AgenticVault",
+  storeTagline: "AI Agents & Engineering Tools",
+  heroHeadline: "The Vault for AI Engineers",
+  heroDescription: "Premium prompt packs, autonomous agents, and automation workflows. Built for developers building the future.",
+  ctaHeadline: "Ready to ship faster?",
+  ctaDescription: "Join thousands of AI engineers using our premium tools.",
+  metaTitle: "AgenticVault.dev | AI Agents & Tools",
+  metaDescription: "The vault for AI engineers. Premium prompt packs, autonomous agents, and automation tools.",
 };
 
 export const getBranding = query({

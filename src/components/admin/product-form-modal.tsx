@@ -41,6 +41,7 @@ interface Product {
   fileId?: Id<"_storage">;
   deliveryUrl?: string;
   isActive: boolean;
+  isFeatured: boolean;
 }
 
 type DeliveryType = "none" | "canva" | "file";
@@ -62,6 +63,7 @@ interface FormData {
   previewUrl: string;
   deliveryUrl: string;
   isActive: boolean;
+  isFeatured: boolean;
 }
 
 interface FormErrors {
@@ -97,6 +99,7 @@ export function ProductFormModal({
     previewUrl: "",
     deliveryUrl: "",
     isActive: true,
+    isFeatured: false,
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -122,6 +125,7 @@ export function ProductFormModal({
           previewUrl: product.previewUrl || "",
           deliveryUrl: product.deliveryUrl || "",
           isActive: product.isActive,
+          isFeatured: product.isFeatured || false,
         });
         // Determine delivery type based on existing data
         if (product.deliveryUrl) {
@@ -143,6 +147,7 @@ export function ProductFormModal({
           previewUrl: "",
           deliveryUrl: "",
           isActive: true,
+          isFeatured: false,
         });
         setDeliveryType("none");
       }
@@ -285,6 +290,7 @@ export function ProductFormModal({
         fileId: fileId,
         deliveryUrl: deliveryUrl,
         isActive: formData.isActive,
+        isFeatured: formData.isFeatured,
       };
 
       if (isEditMode && product) {
@@ -576,6 +582,19 @@ export function ProductFormModal({
             </Label>
           </div>
 
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="isFeatured"
+              checked={formData.isFeatured}
+              onCheckedChange={(checked) =>
+                handleChange("isFeatured", checked as boolean)
+              }
+            />
+            <Label htmlFor="isFeatured" className="cursor-pointer">
+              Featured (appears on homepage)
+            </Label>
+          </div>
+
           <DialogFooter>
             <Button
               type="button"
@@ -589,8 +608,8 @@ export function ProductFormModal({
               {isSubmitting
                 ? "Saving..."
                 : isEditMode
-                ? "Update Product"
-                : "Create Product"}
+                  ? "Update Product"
+                  : "Create Product"}
             </Button>
           </DialogFooter>
         </form>

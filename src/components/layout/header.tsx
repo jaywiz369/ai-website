@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 // Static links now only include specialized content
@@ -22,7 +24,7 @@ export function Header() {
   const itemCount = getItemCount();
   const branding = useQuery(api.settings.getBranding);
   const categories = useQuery(api.categories.getTopLevel);
-  const storeName = branding?.storeName ?? "PromptVault";
+  const storeName = branding?.storeName ?? "AgenticVault";
 
   // Prevent hydration mismatch by only showing cart count after mount
   useEffect(() => {
@@ -37,8 +39,17 @@ export function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 group">
-            <span className="font-display text-2xl font-semibold tracking-tight transition-all group-hover:text-glow">
+          <Link href="/" className="-m-1.5 p-1.5 group flex items-center gap-0.5">
+            <div className="relative h-20 w-20 transition-transform group-hover:scale-105">
+              <Image
+                src="/logo-v3.png"
+                alt="AgenticVault Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="font-display text-2xl font-bold tracking-tight transition-all group-hover:text-glow">
               {storeName}
             </span>
           </Link>
@@ -62,9 +73,14 @@ export function Header() {
             <Link
               key={category._id}
               href={`/categories/${category.slug}`}
-              className="text-sm font-medium text-muted-foreground nav-glow"
+              className="group flex items-center gap-2 text-sm font-medium text-muted-foreground nav-glow"
             >
               {category.name}
+              {(category.name === "AI Automations" || category.name === "AI Agents") && (
+                <Badge variant="primary" className="h-4.5 px-1.5 text-[9px] font-bold uppercase tracking-wider bg-primary/5 text-primary/70 border-primary/10">
+                  Soon
+                </Badge>
+              )}
             </Link>
           ))}
         </div>
@@ -143,10 +159,15 @@ export function Header() {
                   <Link
                     key={category._id}
                     href={`/categories/${category.slug}`}
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
+                    className="-mx-3 flex items-center justify-between rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {category.name}
+                    {(category.name === "AI Automations" || category.name === "AI Agents") && (
+                      <Badge variant="primary" className="text-[10px] font-bold uppercase tracking-wider py-0 px-2 h-5">
+                        Soon
+                      </Badge>
+                    )}
                   </Link>
                 ))}
               </div>

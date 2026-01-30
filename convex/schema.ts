@@ -23,6 +23,7 @@ export default defineSchema({
     fileId: v.optional(v.id("_storage")),
     deliveryUrl: v.optional(v.string()), // For Canva links or external delivery URLs
     isActive: v.boolean(),
+    isFeatured: v.boolean(),
     createdAt: v.number(),
   })
     .index("by_slug", ["slug"])
