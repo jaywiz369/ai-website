@@ -21,13 +21,13 @@ export const VideoEmbed = ({ url, type }: VideoEmbedProps) => {
     if (!embedUrl) return null;
 
     return (
-        <div className="relative w-full aspect-video my-8 rounded-2xl overflow-hidden border border-border shadow-2xl bg-muted/30">
+        <span className="block relative w-full aspect-video my-8 rounded-2xl overflow-hidden border border-border shadow-2xl bg-muted/30">
             <iframe
                 src={embedUrl}
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
             />
-        </div>
+        </span>
     );
 };

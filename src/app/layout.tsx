@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Outfit, JetBrains_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "sonner";
 
 const outfit = Outfit({
@@ -53,14 +54,16 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="dark" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
             <body
                 className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${lora.variable} font-sans antialiased`}
             >
-                <ConvexClientProvider>
-                    {children}
-                    <Toaster position="bottom-right" />
-                </ConvexClientProvider>
+                <ThemeProvider>
+                    <ConvexClientProvider>
+                        {children}
+                        <Toaster position="bottom-right" />
+                    </ConvexClientProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

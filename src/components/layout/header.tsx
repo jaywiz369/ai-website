@@ -4,26 +4,18 @@ import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { useSiteData } from "@/providers/site-data-provider";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
-
-// Static links now only include specialized content
-const rightNavigation = [
-  { name: "Blog", href: "/blog" },
-];
-
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { openCart, getItemCount } = useCart();
   const itemCount = getItemCount();
-  const branding = useQuery(api.settings.getBranding);
-  const categories = useQuery(api.categories.getTopLevel);
+  const { branding, categories } = useSiteData();
   const storeName = branding?.storeName ?? "AgenticVault";
 
   // Prevent hydration mismatch by only showing cart count after mount
@@ -76,37 +68,20 @@ export function Header() {
               className="group flex items-center gap-2 text-sm font-medium text-muted-foreground nav-glow"
             >
               {category.name}
-              {(category.name === "AI Automations" || category.name === "AI Agents") && (
-                <Badge variant="primary" className="h-4.5 px-1.5 text-[9px] font-bold uppercase tracking-wider bg-primary/5 text-primary/70 border-primary/10">
-                  Soon
-                </Badge>
-              )}
             </Link>
           ))}
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-muted-foreground nav-glow"
+          >
+            Blog
+          </Link>
         </div>
 
         {/* Desktop navigation - Right (Utility) */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-6">
-          {rightNavigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground nav-glow"
-            >
-              {item.name}
-            </Link>
-          ))}
-
-          <div className="h-4 w-px bg-border" />
-
-          {/* Account placeholder */}
-          <Link
-            href="/login"
-            className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
-          >
-            Sign In
-          </Link>
-
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-2">
+          <ThemeToggle />
+          <div className="h-5 w-px bg-border mx-1" />
           <Button
             variant="ghost"
             size="icon"
@@ -163,38 +138,20 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {category.name}
-                    {(category.name === "AI Automations" || category.name === "AI Agents") && (
-                      <Badge variant="primary" className="text-[10px] font-bold uppercase tracking-wider py-0 px-2 h-5">
-                        Soon
-                      </Badge>
-                    )}
-                  </Link>
-                ))}
-              </div>
-
-              {/* Secondary navigation */}
-              <div className="space-y-1 py-6">
-                {rightNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium text-muted-foreground hover:bg-muted transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
                   </Link>
                 ))}
                 <Link
-                  href="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-primary hover:bg-muted transition-colors"
+                  href="/blog"
+                  className="-mx-3 flex items-center justify-between rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-muted transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Sign In / Create Account
+                  Blog
                 </Link>
               </div>
 
-              {/* Cart button */}
-              <div className="py-6">
+              {/* Theme and Cart */}
+              <div className="flex items-center gap-4 py-6">
+                <ThemeToggle />
                 <Button
                   variant="outline"
                   className="w-full justify-start border-border hover:border-primary/50 hover:bg-primary/5"

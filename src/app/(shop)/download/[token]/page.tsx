@@ -13,27 +13,11 @@ export default function DownloadPage() {
   const token = params.token as string;
 
   const downloadData = useQuery(api.downloads.getByToken, { token });
-  const incrementDownload = useMutation(api.downloads.incrementDownloadCount);
-
-  const handleDownload = async () => {
+  const handleDownload = () => {
     if (!downloadData || "error" in downloadData) return;
 
-    try {
-      // Increment download count
-      await incrementDownload({ token });
-
-      // If there's a file stored in Convex, get its URL
-      if (downloadData.product.fileId) {
-        // In production, you would fetch the file URL from Convex storage
-        // For now, we'll show a placeholder message
-        alert("Download started! Check your downloads folder.");
-      } else {
-        // For demo purposes
-        alert("This is a demo. In production, the file would download here.");
-      }
-    } catch (error) {
-      console.error("Download error:", error);
-    }
+    // Use the robust API route to handle streaming and counting
+    window.location.href = `/api/download/${token}`;
   };
 
   if (downloadData === undefined) {

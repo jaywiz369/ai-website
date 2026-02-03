@@ -18,7 +18,13 @@
       "Bash(dir \"C:\\\\projects.dev\\\\ecom\\\\src\\\\components\")",
       "Bash(winget install:*)",
       "Bash(dir:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(wmic path Win32_PerfFormattedData_PerfProc_Process get:*)",
+      "Bash(tasklist /FI \"STATUS eq running\" /FO TABLE)",
+      "Bash(cmd //c \"taskkill //F //IM node.exe\")",
+      "Bash(npx convex dev:*)"
     ]
   }
 }

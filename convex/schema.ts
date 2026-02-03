@@ -21,6 +21,8 @@ export default defineSchema({
     previewUrl: v.optional(v.string()),
     previewImageId: v.optional(v.id("_storage")), // Storage ID for preview image cleanup
     fileId: v.optional(v.id("_storage")),
+    fileName: v.optional(v.string()),    // Original filename with extension
+    fileSize: v.optional(v.number()),    // File size in bytes
     deliveryUrl: v.optional(v.string()), // For Canva links or external delivery URLs
     isActive: v.boolean(),
     isFeatured: v.boolean(),

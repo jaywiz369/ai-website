@@ -165,6 +165,52 @@ export const completeOrder = internalMutation({
   },
 });
 
+export const createFreeOrder = mutation({
+  args: {
+    email: v.string(),
+    total: v.number(),
+    items: v.array(
+      v.object({
+        productId: v.optional(v.id("products")),
+        price: v.number(),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    // Create the order as completed immediately
+    const orderId = await ctx.db.insert("orders", {
+      email: args.email,
+      status: "completed",
+      total: args.total,
+      stripeSessionId: "free_order_" + Date.now(),
+      createdAt: Date.now(),
+    });
+
+    for (const item of args.items) {
+      await ctx.db.insert("orderItems", {
+        orderId,
+        productId: item.productId,
+        price: item.price,
+      });
+
+      // Generate download token if it's a product
+      if (item.productId) {
+        const token = generateToken();
+        await ctx.db.insert("downloadTokens", {
+          orderId,
+          productId: item.productId,
+          token,
+          expiresAt: Date.now() + 48 * 60 * 60 * 1000, // 48 hours
+          downloadCount: 0,
+          maxDownloads: 5,
+        });
+      }
+    }
+
+    return orderId;
+  },
+});
+
 function generateToken(length: number = 32): string {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

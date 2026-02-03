@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatPrice } from "@/lib/utils";
 import { ProductFormModal } from "@/components/admin/product-form-modal";
+import { useDebounce } from "@/hooks/use-debounce";
 
 interface Product {
   _id: Id<"products">;
@@ -32,7 +33,8 @@ export default function AdminProductsPage() {
   const [editingProduct, setEditingProduct] = useState<Product | undefined>(undefined);
   const [deleteConfirmId, setDeleteConfirmId] = useState<Id<"products"> | null>(null);
 
-  const products = useQuery(api.products.listAll, { search: search || undefined }) as Product[] | undefined;
+  const debouncedSearch = useDebounce(search, 300);
+  const products = useQuery(api.products.listAll, { search: debouncedSearch || undefined }) as Product[] | undefined;
   const removeProduct = useMutation(api.products.remove);
 
   const handleAddClick = () => {

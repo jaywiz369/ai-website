@@ -39,6 +39,8 @@ interface Product {
   previewUrl?: string;
   previewImageId?: Id<"_storage">;
   fileId?: Id<"_storage">;
+  fileName?: string;
+  fileSize?: number;
   deliveryUrl?: string;
   isActive: boolean;
   isFeatured: boolean;
@@ -132,7 +134,10 @@ export function ProductFormModal({
           setDeliveryType("canva");
         } else if (product.fileId) {
           setDeliveryType("file");
-          setDeliveryFileInfo({ name: "Existing file", size: 0 });
+          setDeliveryFileInfo({
+            name: product.fileName || "Existing file",
+            size: product.fileSize || 0,
+          });
         } else {
           setDeliveryType("none");
         }
@@ -239,6 +244,8 @@ export function ProductFormModal({
       let previewUrl = formData.previewUrl;
       let previewImageId: Id<"_storage"> | undefined = undefined;
       let fileId: Id<"_storage"> | undefined = undefined;
+      let fileName: string | undefined = undefined;
+      let fileSize: number | undefined = undefined;
       let deliveryUrl: string | undefined = undefined;
 
       // Upload preview image if one was selected
@@ -275,6 +282,8 @@ export function ProductFormModal({
         if (response.ok) {
           const { storageId } = await response.json();
           fileId = storageId as Id<"_storage">;
+          fileName = selectedDeliveryFile.name;
+          fileSize = selectedDeliveryFile.size;
         }
       }
 
@@ -288,6 +297,8 @@ export function ProductFormModal({
         previewUrl: previewUrl || undefined,
         previewImageId: previewImageId,
         fileId: fileId,
+        fileName: fileName,
+        fileSize: fileSize,
         deliveryUrl: deliveryUrl,
         isActive: formData.isActive,
         isFeatured: formData.isFeatured,

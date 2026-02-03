@@ -26,11 +26,12 @@ interface DownloadToken {
 function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  const orderId = searchParams.get("order_id");
   const { clearCart } = useCart();
 
   const order = useQuery(
-    api.orders.getByStripeSession,
-    sessionId ? { stripeSessionId: sessionId } : "skip"
+    orderId ? api.orders.getById : api.orders.getByStripeSession,
+    orderId ? { id: orderId as any } : sessionId ? { stripeSessionId: sessionId } : "skip"
   );
 
   const downloadTokens = useQuery(
@@ -45,12 +46,12 @@ function CheckoutSuccessContent() {
     }
   }, [order?.status, clearCart]);
 
-  if (!sessionId) {
+  if (!sessionId && !orderId) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-24 text-center">
         <h1 className="text-2xl font-semibold">Invalid session</h1>
         <p className="mt-2 text-muted-foreground">
-          No checkout session found.
+          No checkout session or order found.
         </p>
         <Button asChild className="mt-8">
           <Link href="/products">Browse Products</Link>

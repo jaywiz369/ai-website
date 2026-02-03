@@ -121,15 +121,26 @@ export default function CheckoutPage() {
                 </>
               ) : (
                 <>
-                  <Lock className="mr-2 h-4 w-4" />
-                  Pay {formatPrice(total)}
+                  {total === 0 ? (
+                    <>
+                      <ShoppingBag className="mr-2 h-4 w-4" />
+                      Get for Free
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="mr-2 h-4 w-4" />
+                      Pay {formatPrice(total)}
+                    </>
+                  )}
                 </>
               )}
             </Button>
 
-            <p className="mt-4 text-xs text-center text-muted-foreground">
-              Secure checkout powered by Stripe
-            </p>
+            {total > 0 && (
+              <p className="mt-4 text-xs text-center text-muted-foreground">
+                Secure checkout powered by Stripe
+              </p>
+            )}
           </form>
         </div>
 

@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useDebounce } from "@/hooks/use-debounce";
 
 interface Category {
   _id: string;
@@ -27,10 +28,12 @@ export default function ProductsPage() {
   const [selectedType, setSelectedType] = useState<string>("all");
   const [showFilters, setShowFilters] = useState(false);
 
+  const debouncedSearch = useDebounce(search, 300);
+
   const categories = useQuery(api.categories.list) as Category[] | undefined;
   const types = useQuery(api.products.getTypes) as string[] | undefined;
   const products = useQuery(api.products.list, {
-    search: search || undefined,
+    search: debouncedSearch || undefined,
     categorySlug: selectedCategory !== "all" ? selectedCategory : undefined,
     type: selectedType !== "all" ? selectedType : undefined,
   });

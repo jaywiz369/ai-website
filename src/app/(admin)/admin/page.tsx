@@ -1,7 +1,5 @@
-"use client";
-
-import { useQuery } from "convex/react";
-import { Package, ShoppingCart, DollarSign, TrendingUp } from "lucide-react";
+import { fetchQuery } from "convex/nextjs";
+import { Package, ShoppingCart, DollarSign } from "lucide-react";
 import { api } from "../../../../convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPrice } from "@/lib/utils";
@@ -14,9 +12,9 @@ interface Order {
   createdAt: number;
 }
 
-export default function AdminDashboardPage() {
-  const products = useQuery(api.products.list, {});
-  const orders = useQuery(api.orders.listAll) as Order[] | undefined;
+export default async function AdminDashboardPage() {
+  const products = await fetchQuery(api.products.list, {});
+  const orders = (await fetchQuery(api.orders.listAll)) as Order[];
 
   const totalProducts = products?.length ?? 0;
   const totalOrders = orders?.filter((o: Order) => o.status === "completed").length ?? 0;
@@ -78,9 +76,7 @@ export default function AdminDashboardPage() {
           <CardTitle>Recent Orders</CardTitle>
         </CardHeader>
         <CardContent>
-          {recentOrders === undefined ? (
-            <p className="text-sm text-muted-foreground">Loading...</p>
-          ) : recentOrders.length === 0 ? (
+          {recentOrders.length === 0 ? (
             <p className="text-sm text-muted-foreground">No orders yet.</p>
           ) : (
             <div className="space-y-4">

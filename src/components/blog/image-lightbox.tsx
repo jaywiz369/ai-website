@@ -14,17 +14,17 @@ export const ImageLightbox = ({ src, alt }: ImageLightboxProps) => {
 
     return (
         <>
-            <div
-                className="relative cursor-zoom-in my-8 group overflow-hidden rounded-2xl border border-border bg-muted/30"
+            <span
+                className="block relative cursor-zoom-in my-8 group overflow-hidden rounded-2xl border border-border bg-muted/30"
                 onClick={() => setIsOpen(true)}
             >
                 <img src={src} alt={alt} className="w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]" />
                 {alt && (
-                    <div className="p-3 text-center text-sm text-muted-foreground border-t border-border bg-muted/10 italic">
+                    <span className="block p-3 text-center text-sm text-muted-foreground border-t border-border bg-muted/10 italic">
                         {alt}
-                    </div>
+                    </span>
                 )}
-            </div>
+            </span>
 
             <AnimatePresence>
                 {isOpen && (

@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { useSiteData } from "@/providers/site-data-provider";
 
 const supportLinks = [
   { name: "Contact", href: "/contact" },
@@ -17,8 +16,7 @@ const legalLinks = [
 ];
 
 export function Footer() {
-  const branding = useQuery(api.settings.getBranding);
-  const categories = useQuery(api.categories.getTopLevel);
+  const { branding, categories } = useSiteData();
 
   const storeName = branding?.storeName ?? "AgenticVault";
   const storeTagline = branding?.storeTagline ?? "AI Prompts & Automation Tools";

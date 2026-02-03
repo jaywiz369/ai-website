@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, useMutation } from "convex/react";
-import { Plus, Pencil, Trash2, Search, ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Search } from "lucide-react";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 
@@ -12,9 +12,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export default function AdminPostsPage() {
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 300);
     const posts = useQuery(api.posts.listAll);
     const removePost = useMutation(api.posts.remove);
 
@@ -30,7 +32,7 @@ export default function AdminPostsPage() {
     };
 
     const filteredPosts = posts?.filter((post) =>
-        post.title.toLowerCase().includes(search.toLowerCase())
+        post.title.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
 
     return (
