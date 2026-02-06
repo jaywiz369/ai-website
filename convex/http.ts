@@ -1,6 +1,6 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
-import { internal } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 
 const http = httpRouter();
 
@@ -23,7 +23,7 @@ http.route({
       if (event.type === "checkout.session.completed") {
         const session = event.data.object;
 
-        await ctx.runMutation(internal.orders.completeOrder, {
+        await ctx.runMutation(api.orders.completeOrder, {
           stripeSessionId: session.id,
         });
       }

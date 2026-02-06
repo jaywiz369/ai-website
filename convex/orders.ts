@@ -116,7 +116,7 @@ export const updateStatus = mutation({
   },
 });
 
-export const completeOrder = internalMutation({
+export const completeOrder = mutation({
   args: { stripeSessionId: v.string() },
   handler: async (ctx, args) => {
     const order = await ctx.db

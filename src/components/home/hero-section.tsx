@@ -14,11 +14,11 @@ export function HeroSection() {
     return (
         <section className="relative border-b border-border overflow-hidden">
             {/* Background grid */}
-            <div className="absolute inset-0 bg-grid opacity-40" />
+            <div className="absolute inset-0 bg-grid opacity-70 dark:opacity-40" />
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" />
             {/* Decorative glow orb */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 dark:bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
                 <div className="mx-auto max-w-2xl text-center">
